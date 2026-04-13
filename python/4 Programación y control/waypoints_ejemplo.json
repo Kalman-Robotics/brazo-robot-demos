@@ -1,0 +1,35 @@
+[
+  {
+    "label": "home",
+    "flag": 0,
+    "pose": [0, 0, 0, 0, 0, 0],
+    "speed": 10
+  },
+  {
+    "label": "punto_C_cartesiano",
+    "flag": 1,
+    "pose": [256.8, -85.5, 212.9, -177.99, 0.0, -90.0],
+    "speed": 8,
+    "nota": "TODO — completar con [x, y, z, rx, ry, rz]"
+  },
+  {
+    "label": "punto_A",
+    "flag": 0,
+    "pose": [-0.6, -26.5, -69.1, 13.3, 0, 0],
+    "speed": 10,
+    "nota": "TODO — completar con [J1, J2, J3, J4, J5, J6]"
+  },
+  {
+    "label": "punto_B",
+    "flag": 0,
+    "pose": [43.1, -59.4, -38.7, 13.9, 0, 0],
+    "speed": 10,
+    "nota": "TODO — completar con [J1, J2, J3, J4, J5, J6]"
+  },
+  {
+    "label": "home_final",
+    "flag": 0,
+    "pose": [0, 0, 0, 0, 0, 0],
+    "speed": 10
+  }
+]
