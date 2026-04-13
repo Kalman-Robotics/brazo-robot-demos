@@ -1,94 +1,72 @@
-# Demos Python — Brazo Robot myCobot Pro 450
+# Brazo Robot Demos
 
-Scripts de demostración usando `kalman_robot_arm`. Cada script deja las poses
-vacías o con valores de placeholder — el CEO en el laboratorio completa las
-posiciones con los valores reales del robot físico.
+Scripts Python de demostración para el Brazo Robot myCobot Pro 450. Diseñados para ejecutarse desde tu laptop conectada al robot del laboratorio remoto.
 
-Convención de placeholder: `TODO_POSE = None  # completar con [J1..J6] o [x,y,z,rx,ry,rz]`
+## Prerrequisitos
 
----
+- Python 3.8 o superior
+- Conectado al laboratorio remoto (Husarnet activo, acceso al robot)
 
-## Movimiento y trayectorias
+## Inicio rápido
 
-### `geometrias_3d.py`
-Traza figuras geométricas en el espacio cartesiano (cuadrado, círculo, triángulo)
-usando `send_coords` en secuencia. Al terminar genera un gráfico 3D con `matplotlib`.
+### 1. Instalar la librería del robot
 
-- Requiere: `matplotlib`
+```bash
+pip install --upgrade kalman-robot-arm
+```
 
-### `escritura_K.py`
-El extremo sigue los trazos de la letra **K** en un plano cartesiano fijo.
-Diseñado para usarse con un marcador sujeto al gripper.
+### 2. Clonar el repositorio
 
-### `dibujo_svg.py`
-Carga un archivo SVG y convierte cada path en movimientos cartesianos.
-Pipeline: SVG → `svgpathtools` → muestreo → escalado → `send_coords`.
+```bash
+git clone https://github.com/Kalman-Robotics/brazo-robot-demos.git
+cd brazo-robot-demos
+```
 
-- Requiere: `svgpathtools`, `matplotlib`
-- Uso: `python dibujo_svg.py cat.svg` o `python dibujo_svg.py --preview`
-- Assets incluidos: `cat.svg`, `seven.svg`
+### 3. Ejecutar un demo
 
-### `reach_envelope.py`
-Visita combinaciones de ángulos articulares y genera una nube de puntos 3D del workspace real.
+```bash
+python3 "python/1 Movimiento y trayectorias/geometrias_3d.py"
+```
 
-- Output: `workspace_points.csv` + gráfico 3D
+> Algunos scripts tienen poses marcadas con `TODO` pendientes de calibración. Mostrarán un aviso y saldrán sin mover el robot.
 
----
+## Demos disponibles
 
-## Pick & Place
+### Movimiento y trayectorias
 
-### `pick_place_basico.py`
-Recoge un objeto de la posición A y lo deposita en B. Verifica agarre con `get_gripper_status()==2`.
+```bash
+python3 "python/1 Movimiento y trayectorias/geometrias_3d.py"   # cuadrado, círculo y triángulo en el aire
+python3 "python/1 Movimiento y trayectorias/escritura_K.py"     # escribe la letra K con un marcador
+python3 "python/1 Movimiento y trayectorias/dibujo_svg.py" --preview   # previsualizar SVG sin mover el robot
+python3 "python/1 Movimiento y trayectorias/dibujo_svg.py"             # dibujar SVG en el plano
+python3 "python/1 Movimiento y trayectorias/reach_envelope.py"  # mapa 3D del workspace real
+```
 
-### `apilado.py`
-Recoge desde posición fija e incrementa el Z de depósito en cada ciclo.
+### Pick & Place
 
-### `distribucion_1_a_N.py`
-Recoge desde un punto fijo y distribuye a N posiciones de depósito en secuencia.
+```bash
+python3 "python/2 Pick & Place/pick_place_basico.py"    # recoge objeto A y lo deposita en B
+python3 "python/2 Pick & Place/apilado.py"             # apila objetos incrementando el Z
+python3 "python/2 Pick & Place/distribucion_1_a_N.py"  # distribuye a N posiciones en secuencia
+```
 
----
+### Interacción y demostración visual
 
-## Interacción y demostración visual
+```bash
+python3 "python/3 Interacción y demostración visual/saludo.py"   # secuencia de saludo (wave)
+```
 
-### `saludo.py`
-Secuencia de ángulos que simula un movimiento de saludo (wave). LED verde durante el saludo.
+### Programación y control
 
----
+```bash
+python3 "python/4 Programación y control/waypoints_json.py"              # ejecuta secuencia desde JSON
+python3 "python/4 Programación y control/waypoints_json.py mi_ruta.json" # con archivo propio
+python3 "python/4 Programación y control/pid_posicion.py"               # lazo cerrado proporcional en J1
+```
 
-## Programación y control
+### Aplicaciones temáticas
 
-### `waypoints_json.py`
-Lee poses desde un archivo `.json` y las recorre en orden.
-Incluye `waypoints_ejemplo.json` como plantilla.
-
-### `pid_posicion.py`
-Bucle de control proporcional sobre J1. Demo educativa de lazo cerrado en Python puro.
-
----
-
-## Aplicaciones temáticas
-
-### `barman.py`
-Secuencia coreográfica que simula agarrar un vaso, trasladarlo y "servirlo".
-
-### `contador_objetos.py`
-Recoge objetos de una bandeja y muestra el conteo acumulado en consola.
-
----
-
-## Estado de implementación
-
-| Script | Estructura | Poses | Listo |
-|---|---|---|---|
-| `geometrias_3d.py` | ✅ | ✅ | ✅ |
-| `escritura_K.py` | ✅ | ✅ | ✅ |
-| `dibujo_svg.py` | ✅ | ✅ | ✅ |
-| `reach_envelope.py` | ✅ | ✅ | ✅ |
-| `pick_place_basico.py` | ✅ | ✅ | ✅ |
-| `apilado.py` | ✅ | ⬜ | ⬜ |
-| `distribucion_1_a_N.py` | ✅ | ⬜ | ⬜ |
-| `saludo.py` | ✅ | ⬜ | ⬜ |
-| `waypoints_json.py` | ✅ | ✅ | ✅ |
-| `pid_posicion.py` | ✅ | ✅ | ✅ |
-| `barman.py` | ✅ | ⬜ | ⬜ |
-| `contador_objetos.py` | ✅ | ✅ | ✅ |
+```bash
+python3 "python/5 Aplicaciones temáticas/barman.py"          # secuencia de servir un vaso
+python3 "python/5 Aplicaciones temáticas/contador_objetos.py" # cuenta objetos de una bandeja
+```
