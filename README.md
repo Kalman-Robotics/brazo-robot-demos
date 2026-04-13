@@ -60,20 +60,10 @@ cd "python/2 Pick & Place"
 | `python3 apilado.py` | Apila objetos incrementando el Z de depósito por capa |
 | `python3 distribucion_1_a_N.py` | Distribuye piezas a N posiciones en secuencia |
 
-### Interacción y demostración visual
-
-```bash
-cd "python/3 Interacción y demostración visual"
-```
-
-| Script | Descripción |
-|---|---|
-| `python3 saludo.py` | Secuencia de saludo (wave) con LED verde |
-
 ### Programación y control
 
 ```bash
-cd "python/4 Programación y control"
+cd "python/3 Programación y control"
 ```
 
 | Script | Descripción |
@@ -85,7 +75,7 @@ cd "python/4 Programación y control"
 ### Aplicaciones temáticas
 
 ```bash
-cd "python/5 Aplicaciones temáticas"
+cd "python/4 Aplicaciones temáticas"
 ```
 
 | Script | Descripción |

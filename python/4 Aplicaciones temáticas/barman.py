@@ -4,9 +4,6 @@ Demo: Robot barman
 Secuencia coreográfica que simula agarrar un "vaso", trasladarlo
 y "servirlo" inclinando el extremo. Puramente visual.
 
-Poses a calibrar con el CEO:
-  POSE_REPOSO, POSE_VASO_APPROACH, POSE_VASO_PICK, POSE_SERVIR, POSE_DEVOLVER
-
 Uso:
     python barman.py
 """
@@ -14,28 +11,23 @@ Uso:
 from kalman_robot_arm import KalmanRobotArm
 from time import sleep
 
-POSE_REPOSO        = None   # TODO: [J1..J6]
-POSE_VASO_APPROACH = None   # TODO: [J1..J6]
-POSE_VASO_PICK     = None   # TODO: [J1..J6]
-POSE_SERVIR        = None   # TODO: [J1..J6]
-POSE_DEVOLVER      = None   # TODO: [J1..J6]
+# Reposo — posición home
+POSE_REPOSO        = [0, 0, 0, 0, 0, 0]
 
-SPEED          = 10
-SPEED_PICK     = 6
+# Agarre del vaso — tomadas de pick_place_basico (posición A)
+POSE_VASO_APPROACH = [-0.6, -26.5, -69.1, 13.3,  0.0, 0]
+POSE_VASO_PICK     = [-0.6, -42.7, -83.0, 42.2,  0.0, 0]
+
+INCLINACION = 10.0
+POSE_SERVIR        = [83.1, -59.4, -38.7, 13.9 + INCLINACION, 0.0, 0]
+
+# Devolver — mismo punto de pick (deja el vaso donde lo tomó)
+POSE_DEVOLVER      = [-0.6, -42.7, -83.0, 42.2,  0.0, 0]
+
+SPEED          = 20
+SPEED_PICK     = 10
 ESPERA_GRIPPER = 1.0
-DURACION_SERVIR = 1.5
-
-PENDIENTES = {
-    "POSE_REPOSO":        POSE_REPOSO,
-    "POSE_VASO_APPROACH": POSE_VASO_APPROACH,
-    "POSE_VASO_PICK":     POSE_VASO_PICK,
-    "POSE_SERVIR":        POSE_SERVIR,
-    "POSE_DEVOLVER":      POSE_DEVOLVER,
-}
-faltantes = [k for k, v in PENDIENTES.items() if v is None]
-if faltantes:
-    print(f"\n  ⚠  Poses pendientes: {faltantes}")
-    exit(0)
+DURACION_SERVIR = 6.0
 
 robot = KalmanRobotArm()
 robot.gripper_open()
