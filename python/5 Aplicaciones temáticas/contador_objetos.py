@@ -28,18 +28,6 @@ SPEED                = 10
 SPEED_PICK           = 6
 ESPERA_GRIPPER       = 1.2
 
-PENDIENTES = {
-    "POSE_BANDEJA_APPROACH":  POSE_BANDEJA_APPROACH,
-    "POSE_BANDEJA":           POSE_BANDEJA,
-    "POSE_DESCARGA_APPROACH": POSE_DESCARGA_APPROACH,
-}
-faltantes = [k for k, v in PENDIENTES.items() if v is None]
-faltantes += [f"POSES_DESCARGA[{i}]" for i, v in enumerate(POSES_DESCARGA) if v is None]
-
-if faltantes:
-    print(f"\n  ⚠  Poses pendientes: {faltantes}")
-    exit(0)
-
 def mostrar_display(total, ultimo_estado):
     print(f"\n  ┌─────────────────────────────┐")
     print(f"  │  Objetos procesados: {total:<6d}  │")

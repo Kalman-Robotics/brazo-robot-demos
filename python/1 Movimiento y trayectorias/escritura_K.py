@@ -4,12 +4,6 @@ Demo: Escritura de la letra K en un plano cartesiano fijo
 El extremo sigue los tres trazos de la letra K sujetando un marcador.
 Los puntos se definen como offsets XY relativos a un origen configurable.
 
-Parámetros a calibrar con el CEO:
-  ORIGEN_X, ORIGEN_Y  — coordenada cartesiana del extremo inferior-izquierdo de la K
-  PLANO_Z             — altura del plano de escritura
-  Z_LEVANTE           — altura a la que se levanta la pluma entre trazos
-  PLANO_RX/RY/RZ      — orientación del extremo
-
 Uso:
     python escritura_K.py
 """
@@ -19,7 +13,7 @@ from time import sleep
 from kalman_robot_arm import KalmanRobotArm
 
 # ---------------------------------------------------------------------------
-# Parámetros del plano de escritura — CALIBRAR CON EL CEO
+# Parámetros del plano de escritura
 # ---------------------------------------------------------------------------
 
 ORIGEN_X = 280
@@ -37,21 +31,6 @@ ANCHO_K = 60
 
 SPEED      = 20
 SPEED_DRAW = 10
-
-PENDIENTES = {
-    "ORIGEN_X": ORIGEN_X,
-    "ORIGEN_Y": ORIGEN_Y,
-    "PLANO_Z":  PLANO_Z,
-    "Z_LEVANTE": Z_LEVANTE,
-    "PLANO_RX": PLANO_RX,
-    "PLANO_RY": PLANO_RY,
-    "PLANO_RZ": PLANO_RZ,
-}
-faltantes = [k for k, v in PENDIENTES.items() if v is None]
-if faltantes:
-    print(f"\n  ⚠  Parámetros pendientes: {faltantes}")
-    print("  Calibrar con el CEO antes de ejecutar.\n")
-    exit(0)
 
 # ---------------------------------------------------------------------------
 # Definición de trazos de la K

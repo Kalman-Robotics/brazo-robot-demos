@@ -25,17 +25,6 @@ SPEED_PICK     = 10
 MAX_REINTENTOS = 3
 ESPERA_GRIPPER = 1.2
 
-PENDIENTES = {
-    "POSE_A_APPROACH": POSE_A_APPROACH,
-    "POSE_A_PICK":     POSE_A_PICK,
-    "POSE_B_APPROACH": POSE_B_APPROACH,
-    "POSE_B_PLACE":    POSE_B_PLACE,
-}
-faltantes = [k for k, v in PENDIENTES.items() if v is None]
-if faltantes:
-    print(f"\n  ⚠  Poses pendientes: {faltantes}")
-    exit(0)
-
 robot = KalmanRobotArm()
 robot.gripper_open()
 sleep(ESPERA_GRIPPER)
