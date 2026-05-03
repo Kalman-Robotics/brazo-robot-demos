@@ -69,6 +69,9 @@ robot.wait_until_stopped()
 robot.set_color(0, 0, 0)
 
 try:
+    import subprocess
+    import matplotlib
+    matplotlib.use("Agg")
     import matplotlib.pyplot as plt
     from mpl_toolkits.mplot3d import Axes3D  # noqa: F401
 
@@ -85,9 +88,16 @@ try:
     ax.set_zlabel("Z (mm)")
     ax.set_title("Workspace — myCobot Pro 450")
     plt.tight_layout()
-    plt.savefig(Path(__file__).parent / "workspace_3d.png", dpi=150)
-    plt.show()
+    SALIDA = Path(__file__).parent / "workspace_3d.png"
+    plt.savefig(SALIDA, dpi=150)
     print("  Gráfico guardado: workspace_3d.png")
+    if "microsoft" in open("/proc/version").read().lower():
+        win_path = subprocess.check_output(["wslpath", "-w", str(SALIDA)]).decode().strip()
+        subprocess.Popen(["explorer.exe", win_path],
+                         stdin=subprocess.DEVNULL, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+    else:
+        subprocess.Popen(["xdg-open", str(SALIDA)],
+                         stdin=subprocess.DEVNULL, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
 
 except ImportError:
     print("  matplotlib no instalado — omitiendo visualización")

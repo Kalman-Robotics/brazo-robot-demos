@@ -124,6 +124,7 @@ print(f"  Tiempo estimado: ~{seg_est / 60:.1f} min\n")
 SALIDA_PREVIEW = Path(__file__).parent / (svg_file.stem + "_preview.png")
 
 try:
+    import subprocess
     import matplotlib
     matplotlib.use("Agg")
     import matplotlib.pyplot as plt
@@ -142,6 +143,13 @@ try:
     plt.tight_layout()
     plt.savefig(SALIDA_PREVIEW, dpi=150)
     print(f"  Preview guardado: {SALIDA_PREVIEW.name}")
+    if "microsoft" in open("/proc/version").read().lower():
+        win_path = subprocess.check_output(["wslpath", "-w", str(SALIDA_PREVIEW)]).decode().strip()
+        subprocess.Popen(["explorer.exe", win_path],
+                         stdin=subprocess.DEVNULL, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+    else:
+        subprocess.Popen(["xdg-open", str(SALIDA_PREVIEW)],
+                         stdin=subprocess.DEVNULL, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
 
 except ImportError:
     print("  pip install matplotlib  para preview")

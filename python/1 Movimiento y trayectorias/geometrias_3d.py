@@ -46,9 +46,10 @@ def coord(x, y):
 def mover(robot, pose, registros):
     robot.send_coords(pose, SPEED)
     robot.wait_until_stopped(timeout=15)
+    sleep(0.15)
     c = robot.get_coords()
     if isinstance(c, list) and len(c) == 6:
-        registros.append(c)
+        registros.append(c[:2])
 
 def puntos_cuadrado(cx, cy, lado):
     h = lado / 2
@@ -115,55 +116,41 @@ print("\n  Figuras completadas.")
 SALIDA = Path(__file__).parent / "geometrias_3d.png"
 
 try:
+    import subprocess
     import matplotlib
     matplotlib.use("Agg")
     import matplotlib.pyplot as plt
-    import mpl_toolkits.mplot3d
 
     colores_plt = {"Cuadrado": "red", "Círculo": "green", "Triángulo": "blue"}
 
-    try:
-        fig = plt.figure(figsize=(10, 7))
-        ax = fig.add_subplot(111, projection="3d")
+    fig, ax = plt.subplots(figsize=(8, 8))
 
-        for nombre, _, pts_teoricos in figuras:
-            ax.plot([p[0] for p in pts_teoricos],
-                    [p[1] for p in pts_teoricos],
-                    [p[2] for p in pts_teoricos],
-                    "--", color=colores_plt[nombre], alpha=0.4, label=f"{nombre} (teórico)")
+    for nombre, _, pts_teoricos in figuras:
+        ax.plot([p[0] for p in pts_teoricos],
+                [p[1] for p in pts_teoricos],
+                "--", color=colores_plt[nombre], alpha=0.4, label=f"{nombre} (teórico)")
+        if registros[nombre]:
             ax.plot([p[0] for p in registros[nombre]],
                     [p[1] for p in registros[nombre]],
-                    [p[2] for p in registros[nombre]],
-                    "-o", color=colores_plt[nombre], markersize=3, label=f"{nombre} (real)")
+                    "-o", color=colores_plt[nombre], markersize=4, label=f"{nombre} (real)")
 
-        ax.set_xlabel("X (mm)")
-        ax.set_ylabel("Y (mm)")
-        ax.set_zlabel("Z (mm)")
-        ax.set_title("Trayectorias — teórico vs real (3D)")
-        ax.legend()
-
-    except Exception:
-        print("  3D no disponible — generando gráfico 2D (XY)")
-        fig, ax = plt.subplots(figsize=(8, 6))
-
-        for nombre, _, pts_teoricos in figuras:
-            ax.plot([p[0] for p in pts_teoricos],
-                    [p[1] for p in pts_teoricos],
-                    "--", color=colores_plt[nombre], alpha=0.4, label=f"{nombre} (teórico)")
-            ax.plot([p[0] for p in registros[nombre]],
-                    [p[1] for p in registros[nombre]],
-                    "-o", color=colores_plt[nombre], markersize=3, label=f"{nombre} (real)")
-
-        ax.set_xlabel("X (mm)")
-        ax.set_ylabel("Y (mm)")
-        ax.set_title("Trayectorias — teórico vs real (XY)")
-        ax.legend()
-        ax.set_aspect("equal")
+    ax.set_xlabel("X (mm)")
+    ax.set_ylabel("Y (mm)")
+    ax.set_title(f"Trayectorias — teórico vs real  (Z={PLANO_Z} mm)")
+    ax.legend()
+    ax.set_aspect("equal")
+    ax.grid(True, alpha=0.3)
 
     plt.tight_layout()
     plt.savefig(SALIDA, dpi=150)
-    plt.show()
     print(f"  Gráfico guardado: {SALIDA}")
+    if "microsoft" in open("/proc/version").read().lower():
+        win_path = subprocess.check_output(["wslpath", "-w", str(SALIDA)]).decode().strip()
+        subprocess.Popen(["explorer.exe", win_path],
+                         stdin=subprocess.DEVNULL, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+    else:
+        subprocess.Popen(["xdg-open", str(SALIDA)],
+                         stdin=subprocess.DEVNULL, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
 
 except ImportError:
     print("  pip install matplotlib  para visualización")

@@ -94,6 +94,7 @@ robot.set_color(0, 0, 0)
 SALIDA = Path(__file__).parent / "escritura_K.png"
 
 try:
+    import subprocess
     import matplotlib
     matplotlib.use("Agg")
     import matplotlib.pyplot as plt
@@ -121,6 +122,13 @@ try:
     plt.tight_layout()
     plt.savefig(SALIDA, dpi=150)
     print(f"  Gráfico guardado: {SALIDA.name}")
+    if "microsoft" in open("/proc/version").read().lower():
+        win_path = subprocess.check_output(["wslpath", "-w", str(SALIDA)]).decode().strip()
+        subprocess.Popen(["explorer.exe", win_path],
+                         stdin=subprocess.DEVNULL, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+    else:
+        subprocess.Popen(["xdg-open", str(SALIDA)],
+                         stdin=subprocess.DEVNULL, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
 
 except ImportError:
     print("  pip install matplotlib  para visualización")

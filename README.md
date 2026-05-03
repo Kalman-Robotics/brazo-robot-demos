@@ -60,9 +60,12 @@ cd ~/brazo-robot-demos/python/1\ Movimiento\ y\ trayectorias
 
 ### `geometrias_3d` — Traza un cuadrado, un círculo y un triángulo en el espacio
 
-Para este demo se recomienda que el área de trabajo esté despejada. Puedes ajustar las dimensiones de cada figura y el plano de trabajo con los parámetros al inicio del script.
+Para este demo puedes ajustar las dimensiones de cada figura y el plano de trabajo con los parámetros al inicio del script.
+
+<img src="img/geometrias_3d.png" alt="Trayectorias geometrias_3d" width="300"/>
 
 ```bash
+cd ~/brazo-robot-demos/python/1\ Movimiento\ y\ trayectorias
 python3 geometrias_3d.py
 ```
 
@@ -81,7 +84,10 @@ python3 geometrias_3d.py
 
 ### `escritura_K` — Escribe la letra K con el extremo del brazo
 
+<img src="img/escritura_K.png" alt="Trayectoria escritura_K" width="300"/>
+
 ```bash
+cd ~/brazo-robot-demos/python/1\ Movimiento\ y\ trayectorias
 python3 escritura_K.py
 ```
 
@@ -100,7 +106,10 @@ python3 escritura_K.py
 
 ### `reach_envelope` — Genera la nube de puntos del workspace real
 
+<img src="img/workspace_3d.png" alt="Workspace myCobot Pro 450" width="400"/>
+
 ```bash
+cd ~/brazo-robot-demos/python/1\ Movimiento\ y\ trayectorias
 python3 reach_envelope.py
 ```
 
@@ -127,6 +136,7 @@ cd ~/brazo-robot-demos/python/2\ Pick\ \&\ Place
 ### `pick_place_basico` — Recoge un objeto de A y lo deposita en B
 
 ```bash
+cd ~/brazo-robot-demos/python/2\ Pick\ \&\ Place
 python3 pick_place_basico.py
 ```
 
@@ -147,6 +157,7 @@ python3 pick_place_basico.py
 ### `apilado` — Apila y desapila bloques por capas
 
 ```bash
+cd ~/brazo-robot-demos/python/2\ Pick\ \&\ Place
 python3 apilado.py
 ```
 
@@ -166,6 +177,7 @@ python3 apilado.py
 ### `distribucion_1_a_N` — Distribuye piezas a N destinos en abanico
 
 ```bash
+cd ~/brazo-robot-demos/python/2\ Pick\ \&\ Place
 python3 distribucion_1_a_N.py
 ```
 
@@ -193,6 +205,7 @@ cd ~/brazo-robot-demos/python/3\ Programación\ y\ control
 ### `pid_posicion` — Control proporcional de posición en J1
 
 ```bash
+cd ~/brazo-robot-demos/python/3\ Programación\ y\ control
 python3 pid_posicion.py
 ```
 
@@ -220,6 +233,7 @@ cd ~/brazo-robot-demos/python/4\ Aplicaciones\ temáticas
 ### `barman` — Secuencia coreográfica de agarre y servido
 
 ```bash
+cd ~/brazo-robot-demos/python/4\ Aplicaciones\ temáticas
 python3 barman.py
 ```
 
