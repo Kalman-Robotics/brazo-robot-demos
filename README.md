@@ -16,7 +16,7 @@ Son archivos Python simples — ábrelos, léelos y modifícalos libremente. Cad
 
 ## Prerequisitos
 
-- Python 3.8 o superior instalado en tu laptop
+- Python 3.8 o superior instalado en tu laptop (esto se instalará por defecto al iniciar la conexión con el robot por primera vez)
 - Conectado al laboratorio remoto (Husarnet activo, acceso al robot)
 
 ---
