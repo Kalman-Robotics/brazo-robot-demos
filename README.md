@@ -48,6 +48,8 @@ python3 geometrias_3d.py
 
 ## Demos disponibles
 
+> **Nota de seguridad:** los bloques físicos que el robot manipula no están colocados en el escenario del laboratorio. Todos los scripts ejecutarán los movimientos y las rutinas normalmente, pero el gripper no encontrará objetos que agarrar. Úsalos para observar el movimiento del brazo y entender la lógica de cada demo.
+
 ### Movimiento y trayectorias
 
 ```bash
@@ -120,9 +122,6 @@ python3 reach_envelope.py
 ```bash
 cd ~/brazo-robot-demos/python/2\ Pick\ \&\ Place
 ```
-
-> **Nota:** por motivos de seguridad, los bloques físicos no están colocados en el escenario. Los scripts ejecutarán los movimientos pero el gripper no encontrará objetos que agarrar. Úsalos para observar las trayectorias y entender la lógica antes de operar con objetos reales.
-
 ---
 
 ### `pick_place_basico` — Recoge un objeto de A y lo deposita en B
